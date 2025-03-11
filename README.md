@@ -5,7 +5,7 @@ You are at the ZCurvePy API and Help documentation repository site, and links to
 - ZCurvePy Python package: https://pypi.org/project/zcurvepy/
 - ZCurvePy Web Server: https://tubic.org/zcurvepy/
 - Z-curve Database: https://tubic.org/zcurvepy/database/
-- ZCurvePy Documentation: https://zcurvepy.readthedocs.io/
+- ZCurvePy Documentation: https://zcurvepy-docs.readthedocs.io/
 ## Citing
 The paper on this work has not yet been published. If you would like to cite this software in your work, please contact us to discuss alternatives.
 ## Contact
