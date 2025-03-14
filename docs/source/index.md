@@ -4,7 +4,7 @@
 ![ZCurvePy LOGO](images\logo.png)
 ## Overview
 ZCurvePy aims to build a comprehensive, one-stop bioinformatics platform designed to streamline nucleic acid sequence analysis through the mathematical framework of the Z-curve theory. It empowers researchers to extract DNA/RNA structural features, identify functional genomic elements, and build predictive models with cutting-edge computational tools.
-## Contents
+
 ```{toctree}
 :maxdepth: 2
 :caption: Contents
