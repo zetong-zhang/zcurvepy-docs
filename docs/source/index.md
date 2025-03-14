@@ -20,4 +20,5 @@ authors.md
 reference.md
 citingcontact.md
 acknowledgment.md
+appendix.md
 advanced/*
