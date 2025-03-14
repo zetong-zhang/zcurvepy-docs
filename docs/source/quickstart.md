@@ -1,10 +1,5 @@
 # Quickstart
 We provide the installation of the package here, along with a set of simple examples of its usage.
-## Contents
-- [Installation](#installation)
-    - [Python Requirements](#requirements)
-    - [Operating System](#system)
-- [Code Examples](#code-examples)
 ## Installation
 Python includes the package management system `pip` which should allow you to install ZCurvePy and its dependencies if needed, as well as upgrade or uninstall with just one command in the terminal:
 ```bash

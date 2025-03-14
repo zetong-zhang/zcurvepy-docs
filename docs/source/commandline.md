@@ -1,9 +1,5 @@
 # Commandline
 In order to meet the needs of more users, especially those who are not good at Python, we also equipped ZCurvePy with a series of command line programs that are basically consistent with APIs and Web Server functionality. In some ways, command line programs are more powerful than API interfaces, such as convenient visual interfaces and easy-to-write setting files as JSON. 
-## Contents
-- [Z-curve Plotter](#z-curveplotter)
-- [Z-curve Encoder](#z-curve-encoder)
-- [Z-curve Segmenter](#z-curve-segmenter)
 ## Z-curve Plotter
 This is the executable command line version of ZCurvePlotter, which integrates sequence download, cropping, complementary sequence transformation, multi-curve visualization, and more.  
 
