@@ -17,7 +17,7 @@ We listed a table here corresponding to that in the **Introduction** to better h
 ## Package Structure
 - [ZCurvePy](#ZCurvePy)  
     - <details>
-        <summary><a href="#ZCurvePlotter">ZCurvePlotter</a></summary>
+        <summary><a href="#ZCurvePy">ZCurvePlotter</a></summary>
         <ul>
           <li><a href="#ZCurvePlotter__init__">__init__</a></li>
           <li><a href="#ZCurvePlotter_z_curve">z_curve</a></li>
