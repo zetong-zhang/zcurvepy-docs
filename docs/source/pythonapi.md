@@ -15,37 +15,37 @@ We listed a table here corresponding to that in the **Introduction** to better h
 **\*\*\*** &nbsp;The geometry of the CpG-disparity curve is not obvious, so we do not provide a standard API. Readers may implement and explore its features on their own.
 
 ## Package Structure
-- [ZCurvePy](#ZCurvePy)  
+- [ZCurvePy](#zcurvepy)  
     - <details>
-        <summary><a href="#ZCurvePlotter">ZCurvePlotter</a></summary>
+        <summary><a href="#zcurveplotter">ZCurvePlotter</a></summary>
         <ul>
-          <li><a href="#ZCurvePlotter__init__">__init__</a></li>
-          <li><a href="#ZCurvePlotter_z_curve">z_curve</a></li>
-          <li><a href="#ZCurvePlotter_RY_disparity">RY_disparity</a></li>
-          <li><a href="#ZCurvePlotter_MK_disparity">MK_disparity</a></li>
-          <li><a href="#ZCurvePlotter_WS_disparity">WS_disparity</a></li>
-          <li><a href="#ZCurvePlotter_AT_disparity">AT_disparity</a></li>
-          <li><a href="#ZCurvePlotter_GC_disparity">GC_disparity</a></li>
-          <li><a href="#ZCurvePlotter_x_prime_curve">x_prime_curve</a></li>
-          <li><a href="#ZCurvePlotter_y_prime_curve">y_prime_curve</a></li>
-          <li><a href="#ZCurvePlotter_z_prime_curve">z_prime_curve</a></li>
-          <li><a href="#ZCurvePlotter_AT_prime_curve">AT_prime_curve</a></li>
-          <li><a href="#ZCurvePlotter_GC_prime_curve">GC_prime_curve</a></li>
-          <li><a href="#ZCurvePlotter_CpG_prime_curve">CpG_prime_curve</a></li>
-          <li><a href="#ZCurvePlotter_genome_dS_curve">genome_dS_curve</a></li>
-          <li><a href="#ZCurvePlotter_RY_dS_curve">RY_dS_curve</a></li>
-          <li><a href="#ZCurvePlotter_MK_dS_curve">MK_dS_curve</a></li>
-          <li><a href="#ZCurvePlotter_WS_dS_curve">WS_dS_curve</a></li>
-          <li><a href="#ZCurvePlotter_AT_dS_curve">AT_dS_curve</a></li>
-          <li><a href="#ZCurvePlotter_GC_dS_curve">GC_dS_curve</a></li>
-          <li><a href="#ZCurvePlotter_CpG_dS_curve">CpG_dS_curve</a></li>
+          <li><a href="#zcurveplotter__init__">__init__</a></li>
+          <li><a href="#zcurveplotterz_curve">z_curve</a></li>
+          <li><a href="#zcurveplotterry_disparity">RY_disparity</a></li>
+          <li><a href="#zcurveplottermk_disparity">MK_disparity</a></li>
+          <li><a href="#zcurveplotterws_disparity">WS_disparity</a></li>
+          <li><a href="#zcurveplotterat_disparity">AT_disparity</a></li>
+          <li><a href="#zcurveplottergc_disparity">GC_disparity</a></li>
+          <li><a href="#zcurveplotterx_prime_curve">x_prime_curve</a></li>
+          <li><a href="#zcurveplottery_prime_curve">y_prime_curve</a></li>
+          <li><a href="#zcurveplotterz_prime_curve">z_prime_curve</a></li>
+          <li><a href="#zcurveplotterat_prime_curve">AT_prime_curve</a></li>
+          <li><a href="#zcurveplottergc_prime_curve">GC_prime_curve</a></li>
+          <li><a href="#zcurveplottercpg_prime_curve">CpG_prime_curve</a></li>
+          <li><a href="#zcurveplottergenome_ds_curve">genome_dS_curve</a></li>
+          <li><a href="#zcurveplotterry_ds_curve">RY_dS_curve</a></li>
+          <li><a href="#zcurveplottermk_ds_curve">MK_dS_curve</a></li>
+          <li><a href="#zcurveplotterws_ds_curve">WS_dS_curve</a></li>
+          <li><a href="#zcurveplotterat_ds_curve">AT_dS_curve</a></li>
+          <li><a href="#zcurveplottergc_ds_curve">GC_dS_curve</a></li>
+          <li><a href="#zcurveplottercpg_ds_curve">CpG_dS_curve</a></li>
         </ul>
       </details>
     - <details>
-        <summary><a href="#BatchZCurvePlotter">BatchZCurvePlotter</a></summary>
+        <summary><a href="#batchzcurveplotter">BatchZCurvePlotter</a></summary>
         <ul>
-          <li><a href="#BatchZCurvePlotter__init__">__init__</a></li>
-          <li><a href="#BatchZCurvePlotter__call__">__call__</a></li>
+          <li><a href="#batchzcurveplotter__init__">__init__</a></li>
+          <li><a href="#batchzcurveplotter__call__">__call__</a></li>
         </ul>
       </details>
     - <details>
@@ -104,7 +104,7 @@ This is the Python package `__init__` module of released ZCurvePy package. All t
 ### ZCurvePlotter
 A simple API for plotting a nucleotide sequence to Z-curve or do segmentation based on order index. Multi-thread is not supported by this API. If you want to plot Z-curve for a large dataset using multi-thread, use [BatchZCurvePlotter](#BatchZCurvePlotter) instead. This API only returns coordinate information and provides no graphical operations. If you want visual curves, use commandline tools or program it by yourself using visualization library like [Matplotlib](https://matplotlib.org/) and [Plotly](https://plotly.com/python/).
 
-#### `ZCurvePlotter.__init__` 
+#### `ZCurvePlotter.__init__`
 `__init__` method  of _ZCurvePy.ZCurvePlotter  
 **Args:**  
 - seq_or_record:   
@@ -114,7 +114,7 @@ Object that stores information of nucleic sequence. str, Bio.Seq.Seq, Bio.SeqRec
 - plotter (object):  
   _ZCurvePy.ZCurvePlotter
 
-#### `ZCurvePlotter.z_curve` <a id="ZCurvePlotter_z_curve"></a>
+#### `ZCurvePlotter.z_curve`
 Convert a DNA sequence or RNA sequence to Z-curve.  
 
 **Background**  
@@ -173,7 +173,7 @@ plt.show()
 
 ![Z-curve of Escherichia coli](./images/e_coli_z_curve.jpg)
 
-#### `ZCurvePlotter.RY_disparity` <a id="ZCurvePlotter_RY_disparity"></a>
+#### `ZCurvePlotter.RY_disparity`
 Returns the x values of the Z-curve (RY-disparity).
 
 **Definition**  
@@ -214,7 +214,7 @@ plt.show()
   The x values of the Z-curve.
 
 ![Disparity curves of Escherichia coli](./images/e_coli_disparity.png)
-#### `ZCurvePlotter.MK_disparity` <a id="ZCurvePlotter_MK_disparity"></a>
+#### `ZCurvePlotter.MK_disparity`
 Returns the y values of the Z-curve (MK-disparity).
 
 **Definition**  
@@ -255,7 +255,7 @@ plt.show()
   - y (list):  
   The y values axis of the Z-curve.
 
-#### `ZCurvePlotter.WS_disparity` <a id="ZCurvePlotter_WS_disparity"></a>
+#### `ZCurvePlotter.WS_disparity`
 Returns the z values of the Z-curve (WS-disparity).
 
 **Definition**  
@@ -296,7 +296,7 @@ plt.show()
   - z (list):  
   The z values axis of the Z-curve.
 
-#### `ZCurvePlotter.AT_disparity` <a id="ZCurvePlotter_AT_disparity"></a>
+#### `ZCurvePlotter.AT_disparity`
 Returns AT-disparity (equivalent to AT-skew in some cases).
 
 **Definition**  
@@ -337,7 +337,7 @@ plt.show()
   - d (list):  
   The AT-disparity values.
 
-#### `ZCurvePlotter.GC_disparity` <a id="ZCurvePlotter_GC_disparity"></a>
+#### `ZCurvePlotter.GC_disparity`
 
 Returns GC-disparity (equivalent to GC-skew in some cases).
 
@@ -379,7 +379,7 @@ plt.show()
   - f (list):  
   The GC-disparity values.
 
-#### `ZCurvePlotter.x_prime_curve` <a id="ZCurvePlotter_x_prime_curve"></a>
+#### `ZCurvePlotter.x_prime_curve`
 
 Calculate x' values and the slope k.
 
@@ -429,7 +429,7 @@ plt.show()
   The slope value 'k'.
 
 ![L lactis Gene Start](./images/l_lactis_gene_start.png)  
-#### `ZCurvePlotter.y_prime_curve` <a id="ZCurvePlotter_y_prime_curve"></a>
+#### `ZCurvePlotter.y_prime_curve`
 
 Calculate y' values and the slope 'k'.
 
@@ -476,7 +476,7 @@ plt.show()
 - k (float):  
   The slope value 'k'.
 
-#### `ZCurvePlotter.z_prime_curve` <a id="ZCurvePlotter_z_prime_curve"></a>
+#### `ZCurvePlotter.z_prime_curve`
 
 Calculate z' values and the slope 'k'.
 
@@ -526,7 +526,7 @@ plt.show()
   The slope value 'k'.  
 
 ![z' curve of human chr15](./images/human_zp.png)
-#### `ZCurvePlotter.AT_prime_curve` <a id="ZCurvePlotter_AT_prime_curve"></a>
+#### `ZCurvePlotter.AT_prime_curve`
 
 Calculate d'AT values for AT-disparity.
 
@@ -573,7 +573,7 @@ plt.show()
 - k (float):  
   The slope value 'k'.
 
-#### `ZCurvePlotter.GC_prime_curve` <a id="ZCurvePlotter_GC_prime_curve"></a>
+#### `ZCurvePlotter.GC_prime_curve`
 
 Calculate d'GC values for GC-disparity.
 
@@ -620,7 +620,7 @@ plt.show()
 - k (float):  
   The slope value 'k'.
 
-#### `ZCurvePlotter.CpG_prime_curve` <a id="ZCurvePlotter_CpG_prime_curve"></a>
+#### `ZCurvePlotter.CpG_prime_curve`
 
 Calculate z' values for CpG-profile.
 
@@ -667,7 +667,7 @@ plt.show()
   The slope value 'k'.  
 
 ![CpG profile of human chr15](./images/human_cpg_island.png)
-#### `ZCurvePlotter.genome_dS_curve` <a id="ZCurvePlotter_genome_dS_curve"></a>
+#### `ZCurvePlotter.genome_dS_curve`
 Return dS(P) curve and its max point and max value. Segmentation algorithm for DNA sequences.  
 
 **Background**  
@@ -726,7 +726,7 @@ plt.show()
   The max value of S(P).  
 
 ![Segmentation of Z-curve](./images/e_coli_segment.png)
-#### `ZCurvePlotter.RY_dS_curve` <a id="ZCurvePlotter_RY_dS_curve"></a>
+#### `ZCurvePlotter.RY_dS_curve`
 Return dS(P) curve for RY disparity and its max point and max value. Segmentation algorithm for DNA sequences.
 
 **Definition**  
@@ -782,7 +782,7 @@ plt.show()
   The max value of S(P).
 
 ![RY profile of human mtDNA](./images/human_mt_xp.png)
-#### `ZCurvePlotter.MK_dS_curve` <a id="ZCurvePlotter_MK_dS_curve"></a>
+#### `ZCurvePlotter.MK_dS_curve`
 Return dS(P) curve for MK disparity and its max point and max value. Segmentation algorithm for DNA sequences.
 
 **Definition**  
@@ -837,7 +837,7 @@ plt.show()
 - mv (float):  
   The max value of S(P).
 
-#### `ZCurvePlotter.WS_dS_curve` <a id="ZCurvePlotter_WS_dS_curve"></a>
+#### `ZCurvePlotter.WS_dS_curve`
 Return dS(P) curve for WS disparity and its max point and max value. Segmentation algorithm for DNA sequences.
 
 **Definition**  
@@ -892,7 +892,7 @@ plt.show()
 - mv (float):  
   The max value of S(P).
 **
-#### `ZCurvePlotter.AT_dS_curve` <a id="ZCurvePlotter_AT_dS_curve"></a>
+#### `ZCurvePlotter.AT_dS_curve`
 Return dS(P) curve for AT disparity and its max point and max value. Segmentation algorithm for DNA sequences.
 
 **Definition**  
@@ -947,7 +947,7 @@ plt.show()
 - mv (float):  
   The max value of S(P).
 
-#### `ZCurvePlotter.GC_dS_curve` <a id="ZCurvePlotter_GC_dS_curve"></a>
+#### `ZCurvePlotter.GC_dS_curve`
 Return dS(P) curve for GC disparity and its max point and max value. Segmentation algorithm for DNA sequences.
 
 **Definition**  
@@ -1002,7 +1002,7 @@ plt.show()
 - mv (float):  
   The max value of S(P).
 
-#### `ZCurvePlotter.CpG_dS_curve` <a id="ZCurvePlotter_CpG_dS_curve"></a>
+#### `ZCurvePlotter.CpG_dS_curve`
 Return dS(P) curve for CpG-profile and its max point and max value. Segmentation algorithm for DNA sequences.
 
 **Definition**  
@@ -1057,13 +1057,13 @@ plt.show()
 - mv (float):  
   The max value of S(P).
 
-### BatchZCurvePlotter <a id="BatchZCurvePlotter"></a>
-### ZCurveEncoder <a id="ZCurveEncoder"></a>
-### BatchZCurveEncoder <a id="BatchZCurveEncoder"></a>
-### ZCurveSegmenter <a id="ZCurveSegmenter"></a>
-### ZCurveBuilder <a id="ZCurveBuilder"></a>
-### decode <a id="Decode"></a>
-### shuffle <a id="Shuffle"></a>
+### BatchZCurvePlotter
+### ZCurveEncoder
+### BatchZCurveEncoder
+### ZCurveSegmenter
+### ZCurveBuilder
+### decode
+### shuffle
 
 ## Third-party API
 We list all of the third party APIs we call here and won't go into them below.  
