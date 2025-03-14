@@ -1,10 +1,11 @@
 # Quickstart
 We provide the installation of the package here, along with a set of simple examples of its usage.
 ## Contents
-- [Installation](#Installation)
-    - [Python Requirements](#Requirements)
-    - [Operating System](#System)
-## Installation <a id="Installation"></a>
+- [Installation](#installation)
+    - [Python Requirements](#requirements)
+    - [Operating System](#system)
+- [Code Examples](#code-examples)
+## Installation
 Python includes the package management system `pip` which should allow you to install ZCurvePy and its dependencies if needed, as well as upgrade or uninstall with just one command in the terminal:
 ```bash
 python -m pip install zcurvepy
@@ -12,12 +13,12 @@ python -m pip install --upgrade zcurvepy
 
 python -m pip uninstall zcurvepy
 ```
-### Python Requirements <a id="Requirements"></a>
+### Python Requirements
 Python 3.7, 3.8, 3.9, 3.10 and 3.11 are supported. We currently recommend using Python 3.9.6 (https://www.python.org/downloads/release/python-396/)
-### Operating System <a id="System"></a>
+### Operating System
 Windows 10/11, macOS, and Linux running on x86_64 arch are supported. Note that some features of Matplotlib may not work on systems without a graphic interface (e.g., RedHat).
 ## Code Examples
-1. Generate Z-curves and derivatives<a id="section1"></a>  
+1. Generate Z-curves and derivatives
    (1) Python API implementation:  
 
     ```python
@@ -79,7 +80,7 @@ Windows 10/11, macOS, and Linux running on x86_64 arch are supported. Note that 
     ```bash
     zcurve-plotter --help
     ```
-2. Extract Z-curve parameter features<a id="section2"></a>  
+2. Extract Z-curve parameter features
     (1) Python API implementation:  
 
     ```python
@@ -137,7 +138,7 @@ Windows 10/11, macOS, and Linux running on x86_64 arch are supported. Note that 
     ```bash
     zcurve-encoder --help
     ```
-3. Segmentation for DNA sequences<a id="section3"></a>  
+3. Segmentation for DNA sequences
     Python API implementation:
     ```python
     from ZCurvePy.RunnableScriptsUtil import download_acc

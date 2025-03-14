@@ -49,7 +49,7 @@ We listed a table here corresponding to that in the **Introduction** to better h
         </ul>
       </details>
     - <details>
-        <summary><a href="#ZCurveEncoder">ZCurveEncoder</a></summary>
+        <summary><a href="#zcurveencoder">ZCurveEncoder</a></summary>
         <ul>
           <li>__init__</li>
           <li>genome_order_index</li>
