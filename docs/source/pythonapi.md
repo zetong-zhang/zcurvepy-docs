@@ -104,7 +104,7 @@ This is the Python package `__init__` module of released ZCurvePy package. All t
 ### ZCurvePlotter
 A simple API for plotting a nucleotide sequence to Z-curve or do segmentation based on order index. Multi-thread is not supported by this API. If you want to plot Z-curve for a large dataset using multi-thread, use [BatchZCurvePlotter](#BatchZCurvePlotter) instead. This API only returns coordinate information and provides no graphical operations. If you want visual curves, use commandline tools or program it by yourself using visualization library like [Matplotlib](https://matplotlib.org/) and [Plotly](https://plotly.com/python/).
 
-#### `ZCurvePlotter.__init__` <a id="ZCurvePlotter__init__"></a>
+#### `ZCurvePlotter.__init__` <span id="ZCurvePlotter__init__"></span>
 `__init__` method  of _ZCurvePy.ZCurvePlotter  
 **Args:**  
 - seq_or_record:   
