@@ -8,7 +8,6 @@ ZCurvePy aims to build a comprehensive, one-stop bioinformatics platform designe
 ```{toctree}
 :maxdepth: 2
 :caption: Contents
-:numbered:
 
 whatsnew.md
 ntroduction.md
@@ -21,4 +20,4 @@ reference.md
 citingcontact.md
 acknowledgment.md
 appendix.md
-advanced/*
+*
