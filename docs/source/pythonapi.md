@@ -15,7 +15,7 @@ We listed a table here corresponding to that in the **Introduction** to better h
 **\*\*\*** &nbsp;The geometry of the CpG-disparity curve is not obvious, so we do not provide a standard API. Readers may implement and explore its features on their own.
 
 ## Package Structure
-- [ZCurvePy](#ZCurvePyModule)  
+- [ZCurvePy](#ZCurvePy)  
     - <details>
         <summary><a href="#ZCurvePlotter">ZCurvePlotter</a></summary>
         <ul>
@@ -98,7 +98,7 @@ We listed a table here corresponding to that in the **Introduction** to better h
   - extract_CDS
   - download_acc
 
-## ZCurvePy <a id="ZCurvePyModule"></a>
+## ZCurvePy
 This is the Python package `__init__` module of released ZCurvePy package. All the C/C++ apis can be called through this module. If you don't want to import additional third-party modules (e.g. modules from scikit-learn) or APIs written in pure Python provided by ZCurvePy (e.g. [ZCurveBuilder](#ZCurveBuilder)), use `import _ZCurvePy` instead of `import ZCurvePy`.
 
 ### ZCurvePlotter <a id="ZCurvePlotter"></a>
