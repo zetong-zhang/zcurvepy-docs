@@ -11,7 +11,7 @@ ZCurvePy aims to build a comprehensive, one-stop bioinformatics platform designe
 :numbered:
 
 whatsnew.md
-ntroduction.md
+introduction.md
 quickstart.md
 pythonapi.md
 commandline.md
