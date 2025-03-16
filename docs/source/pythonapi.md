@@ -1,5 +1,5 @@
 # Python API
-We listed a table here corresponding to that in the **Introduction** to better help readers sort out the logical relationship between the various curve-related apis:  
+We listed a table here corresponding to that in the **Introduction** to better help readers sort out the logical relationship between the various curve-related APIs:  
 |Cumulative Curve     |Profile Curve       |Segmentation Method |Order Index S(P)*  |
 |:--------------------|:-------------------|:-------------------|:------------------|
 |z_curve              |**\*\***            |genome_dS_curve     |genome_order_index |
@@ -10,15 +10,15 @@ We listed a table here corresponding to that in the **Introduction** to better h
 |GC_disparity         |GC_prime_curve      |GC_dS_curve         |GC_order_index     |
 |**\*\*\***           |CpG_prime_curve     |CpG_dS_curve        |CpG_order_index    |
 
-**\*** &nbsp;&nbsp;&nbsp; The order index was treated as a feature of the sequence for machine learning in earlier studies, so it is integrated under the ZCurveEncoder. The other apis are integrated under ZCurvePlotter.  
-**\*\*** &nbsp;&nbsp;&nbsp;Z-profile curves in 3D form are generally not used for visualization, but their parameters are used for gene starting point prediction, so we only provide it in "profile" mode of BatchZCurvePlotter to batch the dataset. You can use bulk interfaces (x_prime_curve, y_prime_curve, z_prime_curve) to implement it in 3D form as well.  
+**\*** &nbsp;&nbsp;&nbsp; The order index was treated as a feature of the sequence for machine learning in earlier studies, so it is integrated under the ZCurveEncoder. The other APIs are integrated under ZCurvePlotter.  
+**\*\*** &nbsp;&nbsp;&nbsp;Z profile curves in 3D form are generally not used for visualization, but their parameters are used for gene starting point prediction, so we only provide it in "profile" mode of BatchZCurvePlotter to batch the dataset. You can use bulk interfaces (x_prime_curve, y_prime_curve, z_prime_curve) to implement it in 3D form as well.  
 **\*\*\*** &nbsp;The geometry of the CpG-disparity curve is not obvious, so we do not provide a standard API. Readers may implement and explore its features on their own.
 
 ## ZCurvePy
 This is the Python package `__init__` module of released ZCurvePy package. All the C/C++ apis can be called through this module. If you don't want to import additional third-party modules (e.g. modules from scikit-learn) or APIs written in pure Python provided by ZCurvePy (e.g. [ZCurveBuilder](#ZCurveBuilder)), use `import _ZCurvePy` instead of `import ZCurvePy`.
 
 ### ZCurvePlotter
-A simple API for plotting a nucleotide sequence to Z-curve or do segmentation based on order index. Multi-thread is not supported by this API. If you want to plot Z-curve for a large dataset using multi-thread, use [BatchZCurvePlotter](#BatchZCurvePlotter) instead. This API only returns coordinate information and provides no graphical operations. If you want visual curves, use commandline tools or program it by yourself using visualization library like [Matplotlib](https://matplotlib.org/) and [Plotly](https://plotly.com/python/).
+A simple API for plotting a nucleotide sequence to Z-curve or do segmentation based on order index. Multi-thread is not supported by this API. If you want to plot Z-curve for a large dataset using multi-thread, use [BatchZCurvePlotter](#batchzcurveplotter) instead. This API only returns coordinate information and provides no graphical operations. If you want visual curves, use commandline tools or program it by yourself using visualization library like [Matplotlib](https://matplotlib.org/) and [Plotly](https://plotly.com/python/).
 
 #### `ZCurvePlotter.__init__`
 `__init__` method  of _ZCurvePy.ZCurvePlotter  
@@ -297,7 +297,7 @@ plt.show()
 
 #### `ZCurvePlotter.x_prime_curve`
 
-Calculate x' values and the slope k.
+Calculate x' values and the slope 'k'.
 
 **Background**  
 The different patterns of the species-specific, conserved nucleotide distribution are helpful to extract some recognition variables to identify gene starts. In prokaryotic genomes, a major jump in xn occurs in the region of −14 to −7 for the true start codons, but not for the non-coding ORFs. It is likely caused by purine-rich SD sequence.Therefore the features of mononucleotide frequencies near the true start codons are notably different from those of the upstream and downstream false starts.
@@ -807,7 +807,7 @@ plt.show()
   The max point of S(P).
 - mv (float):  
   The max value of S(P).
-**
+
 #### `ZCurvePlotter.AT_dS_curve`
 Return dS(P) curve for AT disparity and its max point and max value. Segmentation algorithm for DNA sequences.
 
