@@ -75,7 +75,7 @@ Windows 10/11, macOS, and Linux running on x86_64 arch are supported. Note that 
     ```bash
     zcurve-plotter --help
     ```
-2. Extract Z-curve parameter features
+2. Extract Z-curve parameter features  
     (1) Python API implementation:  
 
     ```python
