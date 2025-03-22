@@ -973,8 +973,317 @@ plt.show()
 - mv (float):  
   The max value of S(P).
 
+### ZCurveEncoder  
+A simple API for converting a DNA sequence to Z-curve parameters, generally used in teaching or learning settings. Multi-thread is not supported by this API. If you want to use multi-thread, please use ZCurvePy.BatchZCurveCoder instead.
+
+#### `ZCurveEncoder.__init__`  
+`__init__` module of  ZCurvePy.ZCurveEncoder  
+
+**Args:**  
+- seq_or_record:  
+  object that stores information of nucleic sequence. str, Bio.Seq, Bio.SeqRecord and many other types are supported.  
+
+**Returns:**  
+- object:  
+  _ZCurvePy.ZCurveEncoder  
+
+#### `ZCurveEncoder.mononucl_transform`  
+Do non-phase mononucleotide transformation on a DNA sequence. Generate 3 parameters.  
+
+**Definition**  
+Let $A_n$, $G_n$, $C_n$, $T_n$ be the counts of A, G, C, T in a DNA sequence of length $n$, such that the mononucleotide Z-curve transformation can be:
+
+$X_n = (A_n + G_n) - (C_n + T_n)$  
+$Y_n = (A_n + C_n) - (G_n + T_n)$  
+$Z_n = (A_n + T_n) - (C_n + G_n)$  
+
+It could also be defined using frequency of bases, which means a kind of normalized version, like:
+
+$x = [(A_n + G_n) - (C_n + T_n)] / n$  
+$y = [(A_n + C_n) - (G_n + T_n)] / n$  
+$z = [(A_n + T_n) - (C_n + G_n)] / n$  
+
+For more information, please see: *ZCurvePy.ZCurveEncoder.k_nucl_phase_transform*
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+params = encoder.mononucl_transform()
+# params = encoder.mononucl_transform(freq=True)
+```
+
+**Application Scene**  
+Gene recognition; Machine learning; Deep learning
+
+**Args:**
+- freq (bool):  
+  do frequencization or not (default: False)
+- local (bool):  
+  use local mode to do frequencization
+
+**Returns:**
+- list:  
+  Z-curve parameters
+
+#### `ZCurveEncoder.dinucl_transform`  
+Do non-phase dinucleotide transformation on a DNA sequence. Generate 12 parameters.  
+
+**Definition**  
+Let $NA_n$, $NG_n$, $NC_n$, $NT_n$ be the counts of dinucleotides in a DNA sequence of length $n$, such that the dinucleotide Z-curve transformation can be:
+
+$X^{\rm N}_n = (NA_n + NG_n) - (NC_n + NT_n)$  
+$Y^{\rm N}_n = (NA_n + NC_n) - (NG_n + NT_n)$  
+$Z^{\rm N}_n = (NA_n + NT_n) - (NC_n + NG_n)$ 
+
+It could also be defined using frequency of bases, which means a kind of normalized version, like:
+
+$x^{\rm N}_n = [p_n({\rm NA}) + p_n({\rm NG})] - [p_n({\rm NC}) + p_n({\rm NT})]$  
+$y^{\rm N}_n = [p_n({\rm NA}) + p_n({\rm NC})] - [p_n({\rm NG}) + p_n({\rm NT})]$  
+$z^{\rm N}_n = [p_n({\rm NA}) + p_n({\rm NT})] - [p_n({\rm NC}) + p_n({\rm NG})]$  
+
+For more information, please see: *ZCurvePy.ZCurveEncoder.k_nucl_phase_transform*
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+params = encoder.dinucl_transform()
+# params = encoder.dinucl_transform(freq=True)
+```
+
+**Application Scene**  
+Gene recognition; Machine learning; Deep learning
+
+**Args:**
+- freq (bool):  
+  do frequencization or not (default: False)
+- local (bool):  
+  use local mode to do frequencization
+
+**Returns:**
+- list:  
+  Z-curve parameters
+
+#### `ZCurveEncoder.trinucl_transform`  
+Do non-phase dinucleotide transformation on a DNA sequence. Generate 48 parameters.  
+
+**Definition**  
+Let $XYA_n$, $XYG_n$, $XYC_n$, $XYT_n$ be the counts of trinucleotides in a DNA sequence of length $n$, such that the trinucleotide Z-curve transformation can be:
+
+$X^{\rm XY}_n = (XYA_n + XYG_n) - (XYC_n + XYT_n)$  
+$Y^{\rm XY}_n = (XYA_n + XYC_n) - (XYG_n + XYT_n)$  
+$Z^{\rm XY}_n = (XYA_n + XYT_n) - (XYC_n + XYG_n)$ 
+
+It could also be defined using frequency of bases, which means a kind of normalized version, like:
+
+$x^{\rm N}_n = [p_n({\rm XYA}) + p_n({\rm XYG})] - [p_n({\rm XYC}) + p_n({\rm XYT})]$  
+$y^{\rm N}_n = [p_n({\rm XYA}) + p_n({\rm XYC})] - [p_n({\rm XYG}) + p_n({\rm XYT})]$  
+$z^{\rm N}_n = [p_n({\rm XYA}) + p_n({\rm XYT})] - [p_n({\rm XYC}) + p_n({\rm XYG})]$  
+
+For more information, please see: *ZCurvePy.ZCurveEncoder.k_nucl_phase_transform*
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+params = encoder.trinucl_transform()
+# params = encoder.trinucl_transform(freq=True)
+```
+
+**Application Scene**  
+Gene recognition; Machine learning; Deep learning
+
+**Args:**
+- freq (bool):  
+  do frequencization or not (default: False)
+- local (bool):  
+  use local mode to do frequencization
+
+**Returns:**
+- list:  
+  Z-curve parameters
+
+#### `ZCurveEncoder.mononucl_phase_transform`  
+Do phasic mononucleotide transformation on a DNA sequence. Generate 9 parameters.  
+
+**Definition**  
+Let $A^i_n$, $G^i_n$, $C^i_n$, $T^i_n$ be the counts of bases in a DNA sequence of length $n$ at position 1, 4, 7 ...(i = 1), 2, 5, 8 ...(i = 2) and 3, 6, 9 (i = 3), such that the phasic mononucleotide Z-curve transformation can be:
+
+$X^i_n = (A^i_n + G^i_n) - (C^i_n + T^i_n)$  
+$Y^i_n = (A^i_n + C^i_n) - (G^i_n + T^i_n),i=1,2,3$  
+$Z^i_n = (A^i_n + T^i_n) - (C^i_n + G^i_n)$ 
+
+It could also be defined using frequency of bases, which means a kind of normalized version, like:
+
+$x^i_n = [p^i_n({\rm A}) + p^i_n({\rm G})] - [p^i_n({\rm C}) + p^i_n({\rm T})]$  
+$y^i_n = [p^i_n({\rm A}) + p^i_n({\rm C})] - [p^i_n({\rm G}) + p^i_n({\rm T})],i=1,2,3$  
+$z^i_n = [p^i_n({\rm A}) + p^i_n({\rm T})] - [p^i_n({\rm G}) + p^i_n({\rm C})]$   
+
+For more information, please see: *ZCurvePy.ZCurveEncoder.k_nucl_phase_transform*  
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+params = encoder.mononucl_phase_transform()
+# params = encoder.mononucl_phase_transform(freq=True)
+```
+  
+**Application Scene**  
+Gene recognition; Machine learning; Deep learning
+
+**Args:**
+- phase (int):  
+  the number of phases (default: 3)
+- freq (bool):  
+  do frequencization or not (default: False)
+- local (bool):  
+  use local mode to do frequencization
+
+**Returns:**
+- list:  
+  Z-curve parameters
+
+The picture below is the visualization of the self-training model obtained after 9-digit Z-curve transformation, principal component analysis and K-means clustering of all ORFs of *Cupriavidus necator*, which well explains why Z-curve is an effective method for gene identification.  
+
+![CDS and non-coding ORF classification](./images/coding_flower.png) 
+
+#### `ZCurveEncoder.dinucl_phase_transform`  
+Do phasic dinucleotide transformation on a DNA sequence. Generate 36 parameters.  
+
+**Definition**  
+Let $NA^i_n$, $NG^i_n$, $NC^i_n$, $NT^i_n$ be the counts of dinucleotides in a DNA sequence of length $n$ at position 1, 4, 7 ...(i = 1), 2, 5, 8 ...(i = 2) and 3, 6, 9 (i = 3), such that the phasic dinucleotide Z-curve transformation can be:
+
+$X^i_n = (NA^i_n + NG^i_n) - (NC^i_n + NT^i_n)$  
+$Y^i_n = (NA^i_n + NC^i_n) - (NG^i_n + NT^i_n),i=1,2,3$  
+$Z^i_n = (NA^i_n + NT^i_n) - (NC^i_n + NG^i_n)$ 
+
+It could also be defined using frequency of bases, which means a kind of normalized version, like:
+
+$x^i_n = [p^i_n({\rm NA}) + p^i_n({\rm NG})] - [p^i_n({\rm NC}) + p^i_n({\rm NT})]$  
+$y^i_n = [p^i_n({\rm NA}) + p^i_n({\rm NC})] - [p^i_n({\rm NG}) + p^i_n({\rm NT})],i=1,2,3$  
+$z^i_n = [p^i_n({\rm NA}) + p^i_n({\rm NA})] - [p^i_n({\rm NA}) + p^i_n({\rm NA})]$   
+
+For more information, please see: *ZCurvePy.ZCurveEncoder.k_nucl_phase_transform*
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+params = encoder.dinucl_phase_transform()
+# params = encoder.dinucl_phase_transform(freq=True)
+```
+
+**Application Scene**  
+Gene recognition; Machine learning; Deep learning
+
+**Args:**
+- phase (int):  
+  the number of phases (default: 3)
+- freq (bool):  
+  do frequencization or not (default: False)
+- local (bool):  
+  use local mode to do frequencization
+
+**Returns:**
+- list:  
+  Z-curve parameters
+
+#### `ZCurveEncoder.trinucl_phase_transform`  
+Do phasic trinucleotide transformation on a DNA sequence. Generate 144 parameters.  
+
+**Definition**  
+Let $XYA^i_n$, $XYG^i_n$, $XYC^i_n$, $XYT^i_n$ be the counts of trinucleotides in a DNA sequence of length $n$ at position 1, 4, 7 ...(i = 1), 2, 5, 8 ...(i = 2) and 3, 6, 9 (i = 3), such that the phasic trinucleotide Z-curve transformation can be:
+
+$X^i_n = (XYA^i_n + XYG^i_n) - (XYC^i_n + XYT^i_n)$  
+$Y^i_n = (XYA^i_n + XYC^i_n) - (XYG^i_n + XYT^i_n),i=1,2,3$  
+$Z^i_n = (XYA^i_n + XYT^i_n) - (XYC^i_n + XYG^i_n)$ 
+
+It could also be defined using frequency of bases, which means a kind of normalized version, like:
+
+$x^i_n = [p^i_n({\rm XYA}) + p^i_n({\rm XYG})] - [p^i_n({\rm XYC}) + p^i_n({\rm XYT})]$  
+$y^i_n = [p^i_n({\rm XYA}) + p^i_n({\rm XYC})] - [p^i_n({\rm XYG}) + p^i_n({\rm XYT})],i=1,2,3$  
+$z^i_n = [p^i_n({\rm XYA}) + p^i_n({\rm XYA})] - [p^i_n({\rm XYA}) + p^i_n({\rm XYA})]$   
+
+For more information, please see: *ZCurvePy.ZCurveEncoder.k_nucl_phase_transform*
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+params = encoder.trinucl_phase_transform()
+# params = encoder.trinucl_phase_transform(freq=True)
+```
+
+**Application Scene**  
+Gene recognition; Machine learning; Deep learning
+
+**Args:**
+- phase (int):  
+  the number of phases (default: 3)
+- freq (bool):  
+  do frequencization or not (default: False)
+- local (bool):  
+  use local mode to do frequencization
+
+**Returns:**
+- list:  
+  Z-curve parameters
+
+#### `ZCurveEncoder.k_nucl_phase_transform`  
+Do phasic k-nucleotide transformation on a DNA sequence. Generate 9 x 4^(k-1) parameters.  
+
+**Background**  
+The Z-curve is an intuitive method for sequence visualization that can display purine versus pyrimidine, amino versus keto and strong H-bonded versus weak H-bonded bases along the DNA sequence. Sequence characteristics, including base composition distribution and periodicity patterns, are well displayed using the Z-curve method. Based on this method, numerous valuable tools for sequence analysis have been developed, contributing to our understanding of DNA sequences, and uncovering new biological insights. In general, the Z-curve method opens a new area of genome analysis using a geometric approach and provides an example of an innovative and systematic study.
+
+**Definition**  
+Let $N_{k-1}A^i_n$, $N_{k-1}G^i_n$, $N_{k-1}C^i_n$, $N_{k-1}T^i_n$ be the counts of k-nucleotides in a DNA sequence of length $n$ at position 1, 4, 7 ...(i = 1), 2, 5, 8 ...(i = 2) and 3, 6, 9 (i = 3), such that the phasic trinucleotide Z-curve transformation can be:
+
+$X^i_n = (N_{k-1}A^i_n + N_{k-1}G^i_n) - (N_{k-1}C^i_n + N_{k-1}T^i_n)$  
+$Y^i_n = (N_{k-1}A^i_n + N_{k-1}C^i_n) - (N_{k-1}G^i_n + N_{k-1}T^i_n),i=1,2,3$  
+$Z^i_n = (N_{k-1}A^i_n + N_{k-1}T^i_n) - (N_{k-1}C^i_n + N_{k-1}T^i_n)$ 
+
+It could also be defined using frequency of bases, which means a kind of normalized version, like:
+
+$x^i_n = [p^i_n({\rm N_{k-1}A}) + p^i_n({\rm N_{k-1}G})] - [p^i_n({\rm N_{k-1}C}) + p^i_n({\rm N_{k-1}T})]$  
+$y^i_n = [p^i_n({\rm N_{k-1}A}) + p^i_n({\rm N_{k-1}C})] - [p^i_n({\rm N_{k-1}G}) + p^i_n({\rm N_{k-1}T})],i=1,2,3$  
+$z^i_n = [p^i_n({\rm N_{k-1}A}) + p^i_n({\rm N_{k-1}T})] - [p^i_n({\rm N_{k-1}G}) + p^i_n({\rm N_{k-1}C})]$   
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+params = encoder.k_nucl_phase_transform(k=2, phase=3, local=True)
+```
+
+**Application Scene**  
+Gene recognition; Machine learning; Deep learning
+
+**Args:**
+- k (int):  
+  the length of k-nucleotide (default: 3)
+- phase (int):  
+  the number of phases (default: 3)
+- freq (bool):  
+  do frequencization or not (default: False)
+- local (bool):  
+  use local mode to do frequencization
+
+**Returns:**
+- list:  
+  Z-curve parameters
+
 ### BatchZCurvePlotter
-### ZCurveEncoder
+
+
 ### BatchZCurveEncoder
 ### ZCurveSegmenter
 ### ZCurveBuilder

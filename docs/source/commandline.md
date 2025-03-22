@@ -81,3 +81,7 @@ zcurve-plotter-3d -a NC_010498.1,NC_000913.3 -s settings.json -o output.json -p 
 ```
 ![Z-curve Plotter Example](./images/z_plotter_3d_example.png)
 ## Z-curve Encoder <a id="z_curve_encoder"></a>
+This is the executable command line version of ZCurvePlotter, which also enables to download sequences from internet.  
+```bash
+zcurve-encoder
+```

@@ -13,7 +13,7 @@ Python 3.7, 3.8, 3.9, 3.10 and 3.11 are supported. We currently recommend using 
 ### Operating System
 Windows 10/11, macOS, and Linux running on x86_64 arch are supported. Note that some features of Matplotlib may not work on systems without a graphic interface (e.g., RedHat).
 ## Code Examples
-1. Generate Z-curves and derivatives
+1. Generate Z-curves and derivatives  
    (1) Python API implementation:  
 
     ```python
