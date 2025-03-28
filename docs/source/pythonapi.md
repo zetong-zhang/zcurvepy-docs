@@ -1281,14 +1281,267 @@ Gene recognition; Machine learning; Deep learning
 - list:  
   Z-curve parameters
 
+#### `ZCurveEncoder.genome_order_index`
+Calculate the genome order index of a nucleic sequence.
+
+**Background**  
+Zhang CT and Zhang R has calculated the statistical quantity S for each of 809 genomes (11 archaea, 42 bacteria, 3 eukaryota, 90 phages, 36 viroids and 627 viruses) and 236 plasmids, found that S < 1/3 is strictly valid for almost all of the above genomes or plasmids. As a direct deduction of the above observation, it is shown that the statistical quantity S is a kind of genome order index, which is correlated with the Shannon function negatively. S < 1/3 suggests that a minimal value of the Shannon H function is required for each genome and should be anew biological statistical quantity useful to describe the composition features of genomes.
+
+**Definition**  
+Let $a$, $g$, $c$ and $t$ be the frequency of A, G, C, T bases in a DNA sequence, such that the genome order index could be defined as:  
+
+$S=a^2+g^2+c^2+t^2$
+
+**Application Scene**  
+Genome Analysis; Machine Learning
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+value = encoder.genome_order_index()
+```
+
+**Returns:**
+- float:  
+  Genome order index
+
+#### `ZCurveEncoder.RY_order_index`
+
+Calculate the RY order index of a nucleic sequence  
+
+**Definition**  
+Let $a$, $g$, $c$ and $t$ be the frequency of A, G, C, T bases in a DNA sequence, such that the RY order index could be defined as:  
+
+$S=(a+g)^2+(c+t)^2$
+
+**Application Scene**  
+Genome Analysis; Machine Learning
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+value = encoder.RY_order_index()
+```
+
+**Returns:**
+- float:  
+  RY order index
+
+#### `ZCurveEncoder.MK_order_index`
+
+Calculate the MK order index of a nucleic sequence  
+
+**Definition**  
+Let $a$, $g$, $c$ and $t$ be the frequency of A, G, C, T bases in a DNA sequence, such that the MK order index could be defined as:  
+
+$S=(a+c)^2+(g+t)^2$
+
+**Application Scene**  
+Genome Analysis; Machine Learning
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+value = encoder.MK_order_index()
+```
+
+**Returns:**
+- float:  
+  MK order index
+
+#### `ZCurveEncoder.WS_order_index`
+
+Calculate the WS order index of a nucleic sequence  
+
+**Definition**  
+Let $a$, $g$, $c$ and $t$ be the frequency of A, G, C, T bases in a DNA sequence, such that the WS order index could be defined as:  
+
+$S=(a+t)^2+(g+c)^2$
+
+**Application Scene**  
+Genome Analysis; Machine Learning
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+value = encoder.WS_order_index()
+```
+
+**Returns:**
+- float:  
+  WS order index
+
+#### `ZCurveEncoder.AT_order_index`
+
+Calculate the AT order index of a nucleic sequence  
+
+**Definition**  
+Let $a$ and $t$ be the frequency of A and T bases in a DNA sequence, such that the AT order index could be defined as:  
+
+$S=a^2+t^2$
+
+**Application Scene**  
+Genome Analysis; Machine Learning
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+value = encoder.AT_order_index()
+```
+
+**Returns:**
+- float:  
+  AT order index
+
+#### `ZCurveEncoder.GC_order_index`
+
+Calculate the GC order index of a nucleic sequence  
+
+**Definition**  
+Let $g$ and $c$ be the frequency of G and C bases in a DNA sequence, such that the GC order index could be defined as:  
+
+$S=g^2+c^2$
+
+**Application Scene**  
+Genome Analysis; Machine Learning
+
+**Usage Example**
+```python
+from Bio import SeqIO
+record = SeqIO.read("example.fa", "fasta")
+encoder = ZCurveEncoder(record)
+value = encoder.GC_order_index()
+```
+
+**Returns:**
+- float:  
+  GC order index
+
 ### BatchZCurvePlotter
 
+A multithreaded version of ZCurvePlotter for processing dataset using Z-curve as embedding method in deep learning. Note that this API's functional richness is far less than the latter.
+
+**Usage Example:**
+```python
+from Bio import SeqIO
+
+records = SeqIO.parse("sequences.fa", "fasta")
+plotter = BatchZCurvePlotter(mode='accum', n_jobs=8)
+y_values = plotter(records)
+
+plotter = BatchZCurvePlotter(mode='profile', n_jobs=8)
+y_values, k_values = plotter()
+```
+
+**Args:**
+- mode (str):  
+  The mode to processing sequences:  
+  (1) 'accum' means cumlulative curves;  
+  (2) 'profile' means fitted curves;  
+  (3) 'tetra' means no accumulations.  
+- window (int):   
+  window size used by mean-smoothing method.
+  If a value <= 0 is given, do nothing and return the original curve data.(Default:0)  
+- n_jobs (int):  
+  specifies the number of threads to use. If it is set to a negative value or 0, it will be reset to the number of CPU cores of the machine. (Default: -1)
+
+**Returns:**
+- object: `_ZCurvePy.BatchZCurvePlotter`
 
 ### BatchZCurveEncoder
+
+The multi-thread version of ZCurveEncoder with simpler syntax. More suitable for extracting features on large datasets.
+
+**Args:**
+- hyper_params (list):  
+  JSON styled object that defines the hyper-parameters for Z-curve transformation. For example, the following content tells the BatchZCurveEncoder to do a mononucleotide non-phase Z-curve t.f. and a trinucleotide phase-specific Z-curve t.f. to every item, then concatenate them as a 147-dim feature vector:
+  ```python
+  [{'k': 1, 'phase': 1, 'local': True}, {'k': 3, 'phase': 3, 'local': True}]
+  ```
+  For the meaning of the variable names, see the APIs of ZCurvePy.ZCurveEncoder.
+
+  - k (int):  
+    must be given >= 1, and preferably not more than 6. (Default: None)
+  - phase (int):  
+    must be given >= 1, and preferably not more than 6. (Default: 3)
+  - freq (bool):
+    when 'local' is true, freq is forced to be true. (Default: False)
+  - local (bool):
+    note that for k and phase=1, the local mode yields the same values as when only freq is set to be true. (Default: False)
+
+- n_jobs (int):  
+  specifies the number of threads to use. If it is set to a negative value or 0, it will be reset to the number of CPU cores of the machine. (Default: -1)
+
+**Returns:**
+- object: `_ZCurvePy.BatchZCurveEncoder`
+
 ### ZCurveSegmenter
+
+Z-curve segmenter based on genome order number, which can be considered an extended version of the GC-Profile's core. It has 7 modes and can be used for edge recognition of genomic islands, CpG islands, AT-rich regions and other structures.
+
 ### ZCurveBuilder
+
 ### decode
+`ZCurvePy.decode(*args, **kwargs)`  
+
+Decode Z-curves to DNA sequences. Only the three 3D curves provided by BatchZCurvePlotter can be reduced to DNA sequences, so this API is actually the reverse of the latter. Multi-thread is supported.
+
+**Args:**
+- data (list):  
+  Data of curves to be decode.
+- k_values (list):  
+  Auxiliary slope information used to decode the fitted curves $(x', y', z')$.
+- mode (str):
+  the mode to processing sequences:  
+  'accum' means cumlulative curves;
+  'profile' means fitted curves;
+  'tetra' means no accumulations.
+- n_jobs (int):  
+  Specifies the number of threads to use. If it is set to a negative value or 0, it will be reset to the number of CPU cores of the machine. (Default: -1)
+
+**Returns:**  
+- seqs (list):        list of sequences as str.
+
 ### shuffle
+
+Do Fisher-Yates shuffle to the bases in a sequence. This API's operands are batch datasets and supports multi-threads.
+
+**Background**  
+In the development of ZCURVE system, it is a rather difficult problem to prepare an appropriate set of non-coding sequences in bacterial genomes, because the amount of non-coding DNA is too few to be used. To solve this problem, the shuffle method to produce negative samples is presented.
+
+**Application Scene**
+Gene recognition; Machine Learning
+
+**Usage Example**
+```python
+from Bio import SeqIO
+records = SeqIO.parse('examples.fa', 'fasta')
+shufseq = shuffle(records)
+```
+
+**Args:**
+- records (list):
+  Sequence dataset to be processed, str, Bio.Seq.Seq, Bio.SeqRecord.SeqRecord and many types are supported.
+- ratio (int):
+  The ratio between negative samples and positive samples, decides how many negative sequences should be obtained from each positive case sequence.
+- seed (int):  
+  Random seed.
+- n_jobs (int):
+  Specifies the number of threads to use. If it is set to a negative value or 0, it will be reset to the number of CPU cores of the machine. (Default: -1)
+
+**Returns:**
+- shufseqs (list):        
+  Shuffled sample sequences.
 
 ## Third-party API
 We list all of the third party APIs we call here and won't go into them below.  

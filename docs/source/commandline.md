@@ -24,7 +24,7 @@ zcurve-plotter-3d [-h] [-f FASTA] [-g GENBANK] [-a ACCESSION] -s SETTINGS [-o OU
 |-p       |--png      |output graphic file as PNG picture (*.png)                |-p picture.png      |
 |-v       |--show     |show graphic user interface or not (default: False)       |-v True             |
 
-**JSON:**  
+**JSON Setting File**  
 ```json
 {
     /* 
@@ -56,6 +56,10 @@ zcurve-plotter-3d [-h] [-f FASTA] [-g GENBANK] [-a ACCESSION] -s SETTINGS [-o OU
     ]
 }
 ```
+Note:  
+1. Param 'intv' must be given or the visualizing module will throw an 'Divided By Zero' exception.
+2. Param 'curve2d' must be given for command `zcurve-plotter` or a error will happen;  
+   Param 'curve3d' must be given for command `zcurve=plotter-3d` or a error will happen.
 
 | No. |Name                     |Mathematical Expression                             | Curve Code |
 |:---:|:-----------------------:|:---------------------------------------------------|:----------:|
@@ -80,8 +84,100 @@ zcurve-plotter -a NC_010498.1 -s settings.json -o output.json -p curve.png -v Tr
 zcurve-plotter-3d -a NC_010498.1,NC_000913.3 -s settings.json -o output.json -p curve.png -v True
 ```
 ![Z-curve Plotter Example](./images/z_plotter_3d_example.png)
-## Z-curve Encoder <a id="z_curve_encoder"></a>
-This is the executable command line version of ZCurvePlotter, which also enables to download sequences from internet.  
+## Z-curve Encoder
+This is the executable command line version of ZCurveEncoder, which also enables to download sequences from internet.  
 ```bash
-zcurve-encoder
+zcurve-encoder [-h] [-f FASTA] [-g GENBANK] [-a ACCESSION] [-e EXTRACT] [-s SETTING] [-o OUTPUT]
 ```
+
+**Args:**  
+|Short Arg|Long Arg   |Discription                                                  |Example             |
+|:-------:|:----------|:------------------------------------------------------------|:-------------------|
+|-h       |--help     |show this help message and exit                              |-h                  |
+|-f       |--fasta    |input genome files as FASTA format (*.fa; *.fasta; *.fna)    |-f genome.fa        |
+|-g       |--genbank  |input genome files as GenBank format (*.gb; *.gbk; *.gbff)   |-g genome.gb        |
+|-a       |--accession|input as NCBI accession number (comma-splited; *.txt)        |-a NC_000854.2      |
+|-e       |--extract  |extract protein genes as samples from annotated files        |-e True             |
+|-s       |--setting  |hyper parameters setting file as json (*.json)               |-s setting.json     |
+|-o       |--output   |output z-curve parameters file as comma-splited table (*.csv)|-o params.csv       |
+
+**JSON Setting File**  
+```json
+{
+    /* 
+     * All of ZCurvePy's command line programs can share a single settings.json,
+     * so the application should be specifed as "encoder" at first.
+     */
+    "encoder": {
+        // Hyper-parameters for variable window Z-curve
+        // Corresponding to parameter 'hyper_params' of ZCurvePy.BatchZCurveEncoder
+        "hyper_params": [
+            { // The first layer of Z-curve transformation
+                "k": 1,         // The length of k-nucleotidemust 
+                                // Must be given >= 1, and preferably not more than 6. (Default: 1)
+                "phase": 3,     // The number of phases (3 for CDS)
+                                // Must be given >= 1, and preferably not more than 6. (Default: 3)
+                "freq": true,   // Do frequencization or not (default:False)
+                "local": true   // Use local mode to do frequencization
+            }, 
+            { // The second layer of Z-curve transformation
+                "k": 2,
+                "phase": 3,
+                "freq": true,
+                "local": true
+            }, 
+            ...
+        ],
+        "n_jobs": 8 // specifies the number of threads to use. 
+                    // If it is set to a negative value or 0, 
+                    // it will be reset to the number of CPU cores of the machine. (Default: -1)
+    }
+}
+```
+
+**Example:**  
+```bash
+zcurve-encoder -a NC_000854.2 -s settings.json -o params.csv -e True
+```
+
+## Z-curve Segmenter
+```bash
+zcurve-segmenter [-h] [-f FASTA] [-g GENBANK] [-a ACCESSION] -m MODE [-t HALTING] [-l MINLEN] [-d MAXDEPTH] -o OUTPUT [-p PNG] [-s SHOW]
+```
+**Args:**  
+|Short Arg|Long Arg   |Discription                                                     |Example         |
+|:-------:|:----------|:---------------------------------------------------------------|:---------------|
+|-h       |--help     |show this help message and exit                                 |-h              |
+|-f       |--fasta    |input genome files as FASTA format (*.fa; *.fasta; *.fna)       |-f genome.fa    |
+|-g       |--genbank  |input genome files as GenBank format (*.gb; *.gbk; *.gbff)      |-g genome.gb    |
+|-a       |--accession|input as NCBI accession number (comma-splited; *.txt)           |-a NC_000854.2  |
+|-m       |--mode     |choose the mode of Z-curve Segmenter (Default: 'GN')            |-m WS           |
+|-t       |--halting  |halting parameter for the segmenting recursion (Default: 100)   |-t 100          |
+|-l       |--minlen   |the min length between two segmentation point (Default: 3000 bp)|-l 3000         |
+|-d       |--maxdepth |the max depth of the segmenting recursion (Default: 9999)       |-d 1000         |
+|-o       |--output   |output segmentation points as comma-splited table (*.csv)       |-o results.csv  |
+|-p       |--png      |output graphic files as PNG picture (*.png)                     |-p plot.png     |
+|-s       |--show     |show the curve and segmentation points (Default: False)         |-s True         |
+
+The Z-curve segmentation method was based on genome order index, and it is a binary iterative algorithm. The segment points in each iteration are calculated by the following formula:  
+
+$n_{\rm seg}={\rm argmax}\{S({\rm P}_n) + S({\rm Q}_n) - S({\rm P}_n + {\rm Q}_n)\},n=1,2,3...,N$
+
+In the above formula, P represents the left subsequence at point $N$ of a dna sequence of length $n$, and Q represents the right subsequence. We provide 7 ways to calculate S:
+
+| Segmentation Target | Order Index S(P)                                    | CLT Code |
+|:-------------------:|:----------------------------------------------------|:--------:|
+|Z-curve              |$S({\rm P})=a^2+g^2+c^2+t^2$                         |GN        |
+|RY disparity         |$S({\rm P})=(a^2+g^2)+(c^2+t^2)$                     |RY        |
+|MK disparity         |$S({\rm P})=(a^2+c^2)+(g^2+t^2)$                     |MK        |
+|WS disparity         |$S({\rm P})=(a^2+t^2)+(g^2+c^2)$                     |WS        |
+|AT disparity         |$S({\rm P})=a^2+t^2$                                 |AT        |
+|GC disparity         |$S({\rm P})=g^2+c^2$                                 |GC        |
+|CpG disparity        |$S({\rm P})=[p_n({\rm CpG})]^2+[1-p_n({\rm CpG})]^2$ |CG        |
+
+**Example:**  
+```bash
+zcurve-segmenter -a CP001956.1 -m WS -l 50000 -o seg_points.csv -s True
+```
+
+![Z-curve Segmenter Example](images/z_segmenter.png)

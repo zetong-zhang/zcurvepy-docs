@@ -49,7 +49,7 @@ Detect critical structural boundaries using genome order index algorithm, identi
     |CpG disparity        |$S({\rm P})=[p_n({\rm CpG})]^2+[1-p_n({\rm CpG})]^2$ |CpG Island Search|
 - **Build Classification Models**  
 Construct nucleic acid sequence classifier with biological function based on machine learning or deep learning framework, high-precision protein gene recognizers for specific species taxa of prokaryotes, which is very useful when studying newly sequenced or resequenced species that are closely related.
-### Technical Highlights
+## Technical Highlights
 1. **High-Performance Hybrid Architecture**
     - **C/C++ Acceleration**  
     Core algorithmic modules are implemented natively in C/C++ and seamlessly integrated with Python via dynamic libraries (DLL/SO), where C++ classes and functions are wrapped into Python-callable objects using native Python C/C++ APIs, balancing development efficiency with runtime performance.
