@@ -1489,7 +1489,12 @@ The multi-thread version of ZCurveEncoder with simpler syntax. More suitable for
 
 Z-curve segmenter based on genome order number, which can be considered an extended version of the GC-Profile's core. It has 7 modes and can be used for edge recognition of genomic islands, CpG islands, AT-rich regions and other structures.
 
+#### `ZCurveSegmenter.__init__`
+The init function of ZCurvePy.ZCurveSegmenter
+
 ### ZCurveBuilder
+
+#### `ZCurveBuilder.__init__`
 
 ### decode
 `ZCurvePy.decode(*args, **kwargs)`  
@@ -1513,13 +1518,14 @@ Decode Z-curves to DNA sequences. Only the three 3D curves provided by BatchZCur
 - seqs (list):        list of sequences as str.
 
 ### shuffle
+`ZCurvePy.shuffle(*args, **kwargs)`  
 
 Do Fisher-Yates shuffle to the bases in a sequence. This API's operands are batch datasets and supports multi-threads.
 
 **Background**  
 In the development of ZCURVE system, it is a rather difficult problem to prepare an appropriate set of non-coding sequences in bacterial genomes, because the amount of non-coding DNA is too few to be used. To solve this problem, the shuffle method to produce negative samples is presented.
 
-**Application Scene**
+**Application Scene**  
 Gene recognition; Machine Learning
 
 **Usage Example**
@@ -1530,13 +1536,13 @@ shufseq = shuffle(records)
 ```
 
 **Args:**
-- records (list):
+- records (list):  
   Sequence dataset to be processed, str, Bio.Seq.Seq, Bio.SeqRecord.SeqRecord and many types are supported.
-- ratio (int):
+- ratio (int):  
   The ratio between negative samples and positive samples, decides how many negative sequences should be obtained from each positive case sequence.
 - seed (int):  
   Random seed.
-- n_jobs (int):
+- n_jobs (int):  
   Specifies the number of threads to use. If it is set to a negative value or 0, it will be reset to the number of CPU cores of the machine. (Default: -1)
 
 **Returns:**
