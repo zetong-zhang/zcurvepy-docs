@@ -9,3 +9,8 @@ This is the page that reports ZCurvePy updates and their latest work. You can bo
 **[5]** Fixed an issue where jump links in documentation did not work;  
 **[6]** The GenBank files will only be downloaded when users need to extract CDS;  
 **[7]** Fixed an issue where the graphical interface could not be displayed properly on Linux systems;  
+## Released version 1.5.10
+**Date:** 2025-04-01  
+[1] Fixed the errors in the document and standard documentation for ZCurveSegmenter;  
+[2] Add version restrictions for dependent packages to prevent incorrect configuration;  
+[3] Optimized C++ module compilation process, supports installation on unsupported systems.

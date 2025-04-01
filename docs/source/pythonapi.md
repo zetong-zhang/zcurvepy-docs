@@ -1489,14 +1489,58 @@ The multi-thread version of ZCurveEncoder with simpler syntax. More suitable for
 
 Z-curve segmenter based on genome order number, which can be considered an extended version of the GC-Profile's core. It has 7 modes and can be used for edge recognition of genomic islands, CpG islands, AT-rich regions and other structures.
 
-#### `ZCurveSegmenter.__init__`
-The init function of ZCurvePy.ZCurveSegmenter
+#### `ZCurveSegmenter.__init__`  
+
+The `__init__` function of ZCurvePy.ZCurveSegmenter.
+
+**Args:**
+- mode (str):  
+  The mode Z-curve segmenter. It can be one of the following:  
+  - 'GN': Using genome order number to segment Z-curves;  
+  - 'RY': Using RY order number to segment RY-profile;  
+  - 'MK': Using MK order number to segment MK-profile;  
+  - 'WS': Using WS order number to segment GC-profile;  
+  - 'AT': Using AT order number to segment AT-skew;  
+  - 'GC': Using GC order number to segment GC-skew;  
+  - 'CG': Using CpG order number to segment CpG-profile.  
+
+- halting (int):  
+  The halting value of segmenter. Defaults to 100.
+
+- min_len (int):  
+  The minimum length of fragments. Defaults to 3000.
+
+- max_depth (int):  
+  The maximum depth of iteration. Defaults to 9999.
+
+#### `ZCurveSegmenter.run`  
+
+Run the segmenter.
+
+**Args:**
+- record (str):  
+  The sequence to be segmented.
+
+**Returns:**
+- list:  
+  A list of tuples, each tuple contains the position and the value of the segment point.
+
+#### `ZCurveSegmenter.reset`  
+
+Reset the segmenter.
 
 ### ZCurveBuilder
 
 #### `ZCurveBuilder.__init__`
 
+The `__init__` function of ZCurvePy.ZCurveBuilder
+
+#### `ZCurveBuilder.fit`
+
+#### `ZCurveBuilder.predict`
+
 ### decode
+
 `ZCurvePy.decode(*args, **kwargs)`  
 
 Decode Z-curves to DNA sequences. Only the three 3D curves provided by BatchZCurvePlotter can be reduced to DNA sequences, so this API is actually the reverse of the latter. Multi-thread is supported.
