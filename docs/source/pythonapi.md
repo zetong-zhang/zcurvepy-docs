@@ -1527,17 +1527,62 @@ Run the segmenter.
 
 #### `ZCurveSegmenter.reset`  
 
-Reset the segmenter.
+Reset the segmenter. Clear segmentation points generated in the last run.
 
 ### ZCurveBuilder
+
+A simple API for building gene recognizer. It includes basic modules such as feature extraction, preprocessing, negative sampling and model training. Each module is customizable. Core algorithm of ZCURVE 2.0 / 3.0.
 
 #### `ZCurveBuilder.__init__`
 
 The `__init__` function of ZCurvePy.ZCurveBuilder
 
+**Args:**
+- encoder (Callable):  
+  A function or object that can be called with a list of supported sequences and returns a feature matrix of the data set. Default is a BatchZCurveEncoder object that yields 189-dim features.
+- model (object):  
+  A machine learning model object that have `fit` and `predict_proba` method. Default is a RBF-SVM model from `sklearn.svm.SVC` with balanced class weights.
+- standard (bool):  
+  Whether to apply standardization to the data. (Use `sklearn.preprocessing.StandardScaler`)  
+  Default: True
+- normal (bool):  
+  Whether to apply normalization to the data. (Use `sklearn.preprocessing.MinMaxScaler`)  
+  Default: False  
+- neg_pos_ratio (int):  
+  The ratio between negative samples and positive samples, decides how many negative sequences should be obtained from each positive case sequence.  
+  Parameter for `ZCurveBuilder.shuffle`, default is 5.
+- seed (int):  
+  Random seed.
+- n_jobs (int):  
+  Number of CPU cores used. All are used by default.
+
+**Returns:**  
+- object: `ZCurvePy.ZCurveBuilder`
+
 #### `ZCurveBuilder.fit`
 
+Fit the model after negative samples are generated and the dataset is preprocessed.
+
+**Args:**
+- pos_data (object):  
+  Positive example sequence data sets generally use reference gene sequences as positive examples.
+
 #### `ZCurveBuilder.predict`
+
+Predict whether a set of sequences is a gene coding sequence.
+
+**Args:**  
+- data (object):  
+  Sequence dataset to predict.
+- threshold (float):  
+  Label judgment threshold.  
+  Greater than the threshold is a positive sample, and less than the threshold is a negative sample.
+
+**Returns:**
+- labels (ndarray):  
+  Prediction label for the sample.
+- scores (ndarray):  
+  The predicted score of the sample.
 
 ### decode
 
@@ -1594,11 +1639,13 @@ shufseq = shuffle(records)
   Shuffled sample sequences.
 
 ## Third-party API
-We list all of the third party APIs we call here and won't go into them below.  
-|API                |Description                                                      |Python Package|
-|:-----------------:|:----------------------------------------------------------------|:------------:|
-|`Bio.Seq`          |Provide objects to represent biological sequences with alphabets.|Biopython     |
-|`Bio.SeqRecord`    |Represent a Sequence Record, a sequence with annotation.         |Biopython     |
-|`Bio.SeqIO`        |The standard Sequence Input/Output interface.                    |Biopython     |
-|`Bio.SeqUtils`     |Miscellaneous functions for dealing with sequences.              |Biopython     |
-|`matplotlib.pyplot`|State-based interface to matplotlib.                             |Matplotlib    |
+We list all of the third party APIs we call here.  
+|API                 |Description                                                           |Python Package|
+|:------------------:|:---------------------------------------------------------------------|:------------:|
+|`Bio.Seq`           |Provide objects to represent biological sequences with alphabets.     |Biopython     |
+|`Bio.SeqRecord`     |Represent a Sequence Record, a sequence with annotation.              |Biopython     |
+|`Bio.SeqIO`         |The standard Sequence Input/Output interface.                         |Biopython     |
+|`Bio.SeqUtils`      |Miscellaneous functions for dealing with sequences.                   |Biopython     |
+|`matplotlib.pyplot` |State-based interface to matplotlib.                                  |Matplotlib    |
+|`sklearn.preprocess`|Data preprocessing module including standardization and normalization.|Sci-kit Learn |
+|`sklearn.svm`       |Support vector machine models.                                        |Sci-kit Learn |
